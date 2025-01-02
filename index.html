@@ -3,178 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Department Staff Scheduling</title>
+    <title>Staff Scheduling</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f8f9fa;
+            background-color: #f4f4f9;
+            color: #333;
         }
+
         header {
-            background-color: #343a40;
-            color: #ffffff;
-            padding: 10px 20px;
+            background: #007bff;
+            color: #fff;
+            padding: 20px;
             text-align: center;
         }
-        main {
+
+        .container {
+            margin: 20px auto;
+            max-width: 1200px;
             padding: 20px;
-        }
-        .schedule {
-            max-width: 900px;
-            margin: 0 auto;
-            background: #ffffff;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background: #fff;
             border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin: 20px 0;
         }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
+
         th, td {
+            border: 1px solid #ddd;
             padding: 10px;
             text-align: center;
         }
+
         th {
-            background-color: #6c757d;
-            color: #ffffff;
-        }
-        .actions button {
-            padding: 5px 10px;
-            margin: 0 5px;
             background-color: #007bff;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
         }
-        .actions button:hover {
-            background-color: #0056b3;
+
+        .form-control {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
         }
-        button.add {
+
+        button {
             background-color: #28a745;
             color: white;
+            padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            padding: 10px 15px;
             cursor: pointer;
         }
-        button.add:hover {
+
+        button:hover {
             background-color: #218838;
         }
-        input, select {
-            padding: 8px;
-            margin: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            width: calc(100% - 20px);
-        }
-        .form-container {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
+
+        .staff-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Staff Scheduling for Departments</h1>
+        <h1>Staff Scheduling</h1>
     </header>
-    <main>
-        <div class="schedule">
-            <h2>Department Schedule</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Department</th>
-                        <th>Staff Members</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody id="schedule-body">
-                    <tr>
-                        <td>CSE</td>
-                        <td id="cse-staff">John, Jane</td>
-                        <td class="actions">
-                            <button onclick="editStaff('cse')">Edit</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>IT</td>
-                        <td id="it-staff">Alice, Bob</td>
-                        <td class="actions">
-                            <button onclick="editStaff('it')">Edit</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>ECE</td>
-                        <td id="ece-staff">Tom, Jerry</td>
-                        <td class="actions">
-                            <button onclick="editStaff('ece')">Edit</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>AIDS</td>
-                        <td id="aids-staff">Rick, Morty</td>
-                        <td class="actions">
-                            <button onclick="editStaff('aids')">Edit</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="form-container">
-            <h2>Add Staff to Department</h2>
-            <form id="add-staff-form" onsubmit="submitForm(event)">
-                <label for="department">Department:</label>
-                <select id="department" required>
-                    <option value="cse">CSE</option>
-                    <option value="it">IT</option>
-                    <option value="ece">ECE</option>
-                    <option value="aids">AIDS</option>
-                </select>
-                <label for="staff-name">Staff Name:</label>
-                <input type="text" id="staff-name" placeholder="Enter Staff Name" required />
-                <button type="submit" class="add">Add Staff</button>
-            </form>
-        </div>
-    </main>
+    <div class="container">
+        <h2>Schedule</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Period</th>
+                    <th>Staff Member</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody id="scheduleBody">
+                <!-- Rows will be dynamically added -->
+            </tbody>
+        </table>
+
+        <h2>Add New Schedule</h2>
+        <form id="scheduleForm">
+            <input class="form-control" type="time" id="time" placeholder="Time" required>
+            <input class="form-control" type="text" id="period" placeholder="Period" required>
+            <input class="form-control" type="text" id="staff" placeholder="Staff Member" required>
+            <input class="form-control" type="url" id="image" placeholder="Image URL" required>
+            <button type="button" onclick="addSchedule()">Add Schedule</button>
+        </form>
+    </div>
+
     <script>
-        function editStaff(department) {
-            const currentStaff = document.getElementById(`${department}-staff`).textContent;
-            const newStaff = prompt("Edit Staff Members (comma-separated):", currentStaff);
-            if (newStaff !== null) {
-                const staffList = newStaff.split(',').map(name => name.trim());
-                if (staffList.length <= 5) {
-                    document.getElementById(`${department}-staff`).textContent = staffList.join(', ');
-                } else {
-                    alert("Maximum of 5 staff members allowed per department.");
-                }
-            }
-        }
+        // Function to add a new schedule row
+        function addSchedule() {
+            const time = document.getElementById('time').value;
+            const period = document.getElementById('period').value;
+            const staff = document.getElementById('staff').value;
+            const imageUrl = document.getElementById('image').value;
 
-        function submitForm(event) {
-            event.preventDefault();
-            const department = document.getElementById('department').value;
-            const staffName = document.getElementById('staff-name').value.trim();
+            if (time && period && staff && imageUrl) {
+                const tableBody = document.getElementById('scheduleBody');
 
-            if (staffName) {
-                const staffElement = document.getElementById(`${department}-staff`);
-                const currentStaff = staffElement.textContent.split(',').map(name => name.trim());
+                // Create a new row
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${time}</td>
+                    <td>${period}</td>
+                    <td>${staff}</td>
+                    <td><img class="staff-image" src="${imageUrl}" alt="${staff}"></td>
+                `;
 
-                if (currentStaff.length < 5) {
-                    currentStaff.push(staffName);
-                    staffElement.textContent = currentStaff.join(', ');
-                } else {
-                    alert("Maximum of 5 staff members allowed per department.");
-                }
+                // Append the row to the table
+                tableBody.appendChild(row);
 
-                document.getElementById('add-staff-form').reset();
+                // Reset the form fields
+                document.getElementById('scheduleForm').reset();
+            } else {
+                alert('Please fill in all fields.');
             }
         }
     </script>
