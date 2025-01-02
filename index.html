@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internship Search Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background-color: #333;
+            padding: 15px;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .internship-search {
+            margin-bottom: 30px;
+        }
+        .internship-search input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .internship-search input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .internship-search input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .internship-listings {
+            margin-top: 30px;
+        }
+        .internship {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Internship Search Portal</h1>
+    <p>Find Your Perfect Internship - No Payment Required!</p>
+</header>
+
+<nav>
+    <a href="#search">Search Internships</a>
+    <a href="#listings">Internship Listings</a>
+</nav>
+
+<div class="container" id="search">
+    <h2>Search for Internships</h2>
+    <form class="internship-search" action="/search-internships" method="GET">
+        <label for="keywords">Enter Internship Title or Keywords:</label>
+        <input type="text" id="keywords" name="keywords" placeholder="e.g., Web Development, Data Science" required>
+        <input type="submit" value="Search Internships">
+    </form>
+</div>
+
+<div class="container" id="listings">
+    <h2>Available Internship Listings</h2>
+
+    <div class="internship-listings">
+        <div class="internship">
+            <h3>Frontend Development Internship</h3>
+            <p><strong>Company:</strong> TechStartups</p>
+            <p><strong>Location:</strong> Remote</p>
+            <p><strong>Requirements:</strong> HTML, CSS, JavaScript</p>
+            <p><strong>Duration:</strong> 6 months</p>
+        </div>
+
+        <div class="internship">
+            <h3>Data Science Internship</h3>
+            <p><strong>Company:</strong> DataInsights</p>
+            <p><strong>Location:</strong> New York, NY</p>
+            <p><strong>Requirements:</strong> Python, Machine Learning, Data Analysis</p>
+            <p><strong>Duration:</strong> 3 months</p>
+        </div>
+
+        <div class="internship">
+            <h3>Digital Marketing Internship</h3>
+            <p><strong>Company:</strong> MarketGurus</p>
+            <p><strong>Location:</strong> Remote</p>
+            <p><strong>Requirements:</strong> SEO, Social Media Marketing</p>
+            <p><strong>Duration:</strong> 4 months</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 Internship Search Portal. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
